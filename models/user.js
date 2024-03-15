@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import validator from "validator";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 
 const userSchema = mongoose.Schema(
   {
@@ -24,6 +24,13 @@ const userSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// fire a function before doc saved to db
+userSchema.pre("save", async function (next) {
+  const salt = await bcrypt.genSalt();
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
 
 const User = mongoose.model("User", userSchema);
 export default User;
