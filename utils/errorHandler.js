@@ -1,11 +1,14 @@
 const handleErrors = (err) => {
   console.log(err.message, err.code);
-  let errors = { email: "", password: "" };
+  let errors = { email: "", password: "", phoneNumber: "", fullName: "" };
 
-  // duplicate email error
+  // duplicate email or phoneNumber error
   if (err.code === 11000) {
-    errors.email = "that email is already registered";
-    return errors;
+    if (err.message.includes("email_1 dup key")) {
+      errors.email = "That email is already registered";
+    } else {
+      errors.phoneNumber = "That phone number is already registered";
+    }
   }
 
   // validation errors

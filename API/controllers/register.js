@@ -3,16 +3,17 @@ import errorHandler from "../../utils/errorHandler.js";
 
 export const register = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { fullName, email, password, phoneNumber } = req.body;
 
     const newUser = new User({
-      username,
+      fullName,
       email,
       password,
+      phoneNumber,
     });
 
     const user = await newUser.save();
-    res.status(201).json(user);
+    res.status(201).json({ message: "User registered successfully", user });
   } catch (error) {
     const errors = errorHandler(error);
     res.status(500).json({ errors });

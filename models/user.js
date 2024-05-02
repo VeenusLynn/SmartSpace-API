@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 
 const userSchema = mongoose.Schema(
   {
-    username: {
+    fullName: {
       type: String,
       required: true,
     },
@@ -15,11 +15,20 @@ const userSchema = mongoose.Schema(
       lowercase: true,
       validate: [validator.isEmail, "Please enter a valid email"],
     },
+    phoneNumber: {
+      type: String,
+      required: [true, "Phone number is required"],
+      unique: true,
+    },
     password: {
       type: String,
       required: [true, "Password is required"],
-      minlength: [6, "Password must be at least 6 characters long"],
-      maxlength: [20, "Password must be at most 20 characters long"],
+      validate: [validator.isStrongPassword, "Password is not strong enough"],
+    },
+    role: {
+      type: String,
+      enum: ["staff", "admin"],
+      default: "staff",
     },
   },
   { timestamps: true }
