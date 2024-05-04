@@ -6,17 +6,17 @@ export const deleteUser = async (req, res) => {
     const userId = req.params.userId;
     const user = await User.findById(userId);
 
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
     if (req.user.role !== "admin" && req.user.email !== user.email) {
       return res.status(403).json({
         message: "You are not authorized",
       });
     }
 
-    user = await User.findByIdAndDelete(userId);
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+    await User.deleteOne({ _id: userId });
 
     res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {

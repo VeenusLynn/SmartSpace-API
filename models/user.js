@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import validator from "validator";
-import bcrypt from "bcrypt";
+// import bcrypt from "bcrypt";
 
 const userSchema = mongoose.Schema(
   {
@@ -23,23 +23,26 @@ const userSchema = mongoose.Schema(
     password: {
       type: String,
       required: [true, "Password is required"],
-      validate: [validator.isStrongPassword, "Password is not strong enough"],
     },
     role: {
       type: String,
       enum: ["staff", "admin"],
       default: "staff",
     },
+    refreshToken: {
+      type: String,
+      default: "",
+    },
   },
   { timestamps: true }
 );
 
 // fire a function before doc saved to db
-userSchema.pre("save", async function (next) {
-  const salt = await bcrypt.genSalt();
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
-});
+// userSchema.pre("save", async function (next) {
+//   const salt = await bcrypt.genSalt();
+//   this.password = await bcrypt.hash(this.password, salt);
+//   next();
+// });
 
 const User = mongoose.model("User", userSchema);
 export default User;
