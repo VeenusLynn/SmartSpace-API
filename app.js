@@ -8,6 +8,7 @@ import morgan from "morgan";
 import multer from "multer";
 import homeRoute from "./API/routes/home.js";
 import authRoute from "./API/routes/auth.js";
+import userRoute from "./API/routes/user.js";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use(upload.any());
 // Routes
 app.use("/home", homeRoute);
 app.use("/auth", authRoute);
+app.use("/user", userRoute);
 
 // Connect to MongoDB
 mongoose
