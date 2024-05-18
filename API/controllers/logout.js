@@ -2,17 +2,12 @@ import User from "../../models/user.js";
 
 export const logout = async (req, res) => {
   try {
-    const refreshToken = req.body.token;
+    const userId = req.body.userId;
+    const user = await User.findById(userId);
+
+    const refreshToken = user.refreshToken;
     if (!refreshToken)
       return res.status(401).json({ message: "Access denied" });
-
-    // Check if the refresh token is valid in the database
-    const user = await User.findOne({ refreshToken });
-
-    if (!user)
-      return res
-        .status(403)
-        .json({ message: "Refresh token not found, user is not logged in" });
 
     user.refreshToken = "";
     await user.save();
