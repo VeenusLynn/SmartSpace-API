@@ -9,6 +9,8 @@ import multer from "multer";
 import homeRoute from "./API/routes/home.js";
 import authRoute from "./API/routes/auth.js";
 import userRoute from "./API/routes/user.js";
+import warehouseRoute from "./API/routes/wms.js";
+import reportRoute from "./API/routes/report.js";
 
 dotenv.config();
 
@@ -29,6 +31,8 @@ app.use(upload.any());
 app.use("/home", homeRoute);
 app.use("/auth", authRoute);
 app.use("/user", userRoute);
+app.use("/wms", warehouseRoute);
+app.use("/report", reportRoute);
 
 // Connect to MongoDB
 mongoose

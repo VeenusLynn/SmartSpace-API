@@ -1,22 +1,24 @@
 import mongoose from "mongoose";
 
-const itemSchema = mongoose.Schema(
+const reportSchema = mongoose.Schema(
   {
-    objectClass: {
+    title: {
       type: String,
       required: true,
     },
-    unitVolume: {
-      type: Number,
+    content: {
+      type: String,
       required: true,
     },
-    shelf: {
+
+    author: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Shelf",
+      ref: "User",
     },
   },
   { timestamps: true }
 );
 
-const Item = mongoose.model("Item", itemSchema);
-export default Item;
+const Report = mongoose.model("Report", reportSchema);
+
+export default Report;

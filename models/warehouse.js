@@ -10,26 +10,28 @@ const warehouseSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    capacity: {
+    maxVolume: {
       type: Number,
       required: true,
     },
-    currentOccupancy: {
+    usedVolume: {
       type: Number,
       required: true,
     },
-    items: [
+    freeVolume: {
+      type: Number,
+      required: true,
+    },
+    shelves: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Item",
+        ref: "Shelf",
       },
     ],
-    manager: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
+    manager: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
   { timestamps: true }
 );
