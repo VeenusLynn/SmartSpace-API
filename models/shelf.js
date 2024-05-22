@@ -5,6 +5,7 @@ const shelfSchema = mongoose.Schema(
     name: {
       type: String,
       required: true,
+      unique: true,
     },
     maxVolume: {
       type: Number,
@@ -12,7 +13,15 @@ const shelfSchema = mongoose.Schema(
     },
     usedVolume: {
       type: Number,
-      required: true,
+      default: 0,
+    },
+    freeVolume: {
+      type: Number,
+      default: 0,
+    },
+    items: {
+      type: Array,
+      default: [],
     },
     warehouse: {
       type: mongoose.Schema.Types.ObjectId,

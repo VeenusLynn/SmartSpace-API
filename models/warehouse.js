@@ -5,6 +5,7 @@ const warehouseSchema = mongoose.Schema(
     name: {
       type: String,
       required: true,
+      unique: true,
     },
     location: {
       type: String,
@@ -12,22 +13,20 @@ const warehouseSchema = mongoose.Schema(
     },
     maxVolume: {
       type: Number,
-      required: true,
+      default: 0,
     },
     usedVolume: {
       type: Number,
-      required: true,
+      default: 0,
     },
     freeVolume: {
       type: Number,
-      required: true,
+      default: 0,
     },
-    shelves: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Shelf",
-      },
-    ],
+    shelves: {
+      type: Array,
+      default: [],
+    },
     manager: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
