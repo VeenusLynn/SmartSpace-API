@@ -5,9 +5,9 @@ export const logout = async (req, res) => {
     const userId = req.body.userId;
     const user = await User.findById(userId);
 
-    const refreshToken = user.refreshToken;
-    if (!refreshToken)
-      return res.status(401).json({ message: "Access denied" });
+    // const refreshToken = user.refreshToken;
+    // if (!refreshToken)
+    //   return res.status(401).json({ message: "Access denied" });
 
     user.refreshToken = "";
     await user.save();
