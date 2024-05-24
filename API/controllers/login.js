@@ -25,12 +25,12 @@ export const login = async (req, res) => {
         isMatch: isMatch,
       });
     }
-
+    // expiry should be 30 mins, but for the sakes of testing it will temporarily be 1 week
     const accessToken = jwt.sign(
       { email: user.email, role: user.role },
       ACCESS_TOKEN_SECRET,
       {
-        expiresIn: "30m",
+        expiresIn: "7d",
       }
     );
 

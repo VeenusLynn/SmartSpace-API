@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 
 export const register = async (req, res) => {
   try {
-    const { fullName, email, password, phoneNumber } = req.body;
+    const { fullName, email, password, phoneNumber, role } = req.body;
 
     if (!fullName || !email || !password || !phoneNumber) {
       return res.status(400).json({ message: "All fields are required" });
@@ -26,6 +26,10 @@ export const register = async (req, res) => {
       password: hashedPassword,
       phoneNumber,
     });
+
+    if (role) {
+      newUser.role = role;
+    }
 
     const user = await newUser.save();
     res.status(201).json({ message: "User registered successfully", user });

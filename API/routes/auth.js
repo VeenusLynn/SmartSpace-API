@@ -16,7 +16,11 @@ router.post("/refresh", refresh);
 router.delete("/delete/:userId", verifyToken, deleteUser);
 
 router.get("/verify", verifyToken, (req, res) => {
-  res.status(200).json({ message: "Token is valid" });
+  // if the req.user.role is admin, return a message
+  if (req.user.role === "admin") {
+    return res.status(200).json({ message: "Welcome Administrator" });
+  }
+  res.status(403).json({ message: "You are not an admin. Access Denied !" });
 });
 
 export default router;

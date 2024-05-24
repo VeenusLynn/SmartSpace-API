@@ -12,8 +12,7 @@ const reportSchema = mongoose.Schema(
     },
 
     author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
     },
   },
   { timestamps: true }
